@@ -13,7 +13,7 @@ jobs:
       
       - name: Build an image from Dockerfile
         run: |
-          docker build -t docker.io/anaisurlichs/react-app:${{ github.sha }} .
+          docker build -t docker.io/devendrabetaque/react-app:${{ github.sha }} .
       
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@add-support-for-trivy-config
