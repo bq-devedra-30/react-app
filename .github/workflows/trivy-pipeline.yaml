@@ -16,6 +16,7 @@ jobs:
       - name: Build an image from Dockerfile
         run: |
           docker build -t docker.io/devendrabetaque/react-app:${{ github.sha }} .
+          docker login docker.io -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           docker push docker.io/devendrabetaque/react-app:${{ github.sha }}
 
       # - name: Configure Docker for GHCR
@@ -26,3 +27,4 @@ jobs:
       #   run: |
       #     docker tag docker.io/devendrabetaque/react-app:${{ github.sha }} ghcr.io/${{ github.repository_owner }}/react-app:${{ github.sha }}
       #     docker push ghcr.io/${{ github.repository_owner }}/react-app:${{ github.sha }}
+
