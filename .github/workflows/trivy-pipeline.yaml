@@ -12,26 +12,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Build an image from Dockerfile
         run: |
           docker build -t docker.io/devendrabetaque/react-app:${{ github.sha }} .
-          docker login docker.io -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           docker push docker.io/devendrabetaque/react-app:${{ github.sha }}
 
-      - name: Push to GitHub Container Registry
-        run: |
-          echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-          docker tag docker.io/devendrabetaque/react-app:${{ github.sha }} ghcr.io/${{ github.repository }}/react-app:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository }}/react-app:${{ github.sha }}
-      
-      # - name: Run Trivy vulnerability scanner in repo mode
-      #   uses: aquasecurity/trivy-action@add-support-for-trivy-config
-      #   with:
-      #     trivy-config: ./trivy-config.yaml
-      #     image-ref: 'docker.io/devendrabetaque/react-app:${{ github.sha }}'
-      #     format: 'table'
-      #     exit-code: '1'
-      #     ignore-unfixed: true
-      #     vuln-type: 'os,library'
-      #     severity: 'CRITICAL,HIGH'
+      # - name: Configure Docker for GHCR
+      #   run: |
+      #     echo "{\"auths\":{\"ghcr.io\":{\"username\":\"$GITHUB_ACTOR\",\"password\":\"${{ secrets.GHCR_PAT }}\"}}}" > $HOME/.docker/config.json
+
+      # - name: Push to GitHub Container Registry
+      #   run: |
+      #     docker tag docker.io/devendrabetaque/react-app:${{ github.sha }} ghcr.io/${{ github.repository_owner }}/react-app:${{ github.sha }}
+      #     docker push ghcr.io/${{ github.repository_owner }}/react-app:${{ github.sha }}
