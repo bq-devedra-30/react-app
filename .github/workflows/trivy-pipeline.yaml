@@ -1,8 +1,10 @@
 name: build
+
 on:
   push:
     branches:
       - branch1
+
 jobs:
   build:
     name: Build
@@ -17,7 +19,7 @@ jobs:
           docker login docker.io -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           docker push docker.io/devendrabetaque/react-app:${{ github.sha }}
 
-     - name: Push to GitHub Container Registry
+      - name: Push to GitHub Container Registry
         run: |
           echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
           docker tag docker.io/devendrabetaque/react-app:${{ github.sha }} ghcr.io/${{ github.repository }}/react-app:${{ github.sha }}
@@ -33,4 +35,3 @@ jobs:
       #     ignore-unfixed: true
       #     vuln-type: 'os,library'
       #     severity: 'CRITICAL,HIGH'
-          
