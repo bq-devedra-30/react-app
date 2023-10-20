@@ -14,7 +14,7 @@ jobs:
       - name: Build an image from Dockerfile
         run: |
           docker build -t docker.io/devendrabetaque/react-app:${{ github.sha }} .
-          docker login docker.io -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+          docker login docker.io -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           docker push docker.io/devendrabetaque/react-app:${{ github.sha }}
 
      - name: Push to GitHub Container Registry
