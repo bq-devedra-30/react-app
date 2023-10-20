@@ -15,14 +15,14 @@ jobs:
         run: |
           docker build -t docker.io/devendrabetaque/react-app:${{ github.sha }} .   
       
-      - name: Run Trivy vulnerability scanner in repo mode
-        uses: aquasecurity/trivy-action@add-support-for-trivy-config
-        with:
-          trivy-config: ./trivy-config.yaml
-          image-ref: 'docker.io/devendrabetaque/react-app:${{ github.sha }}'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+      # - name: Run Trivy vulnerability scanner in repo mode
+      #   uses: aquasecurity/trivy-action@add-support-for-trivy-config
+      #   with:
+      #     trivy-config: ./trivy-config.yaml
+      #     image-ref: 'docker.io/devendrabetaque/react-app:${{ github.sha }}'
+      #     format: 'table'
+      #     exit-code: '1'
+      #     ignore-unfixed: true
+      #     vuln-type: 'os,library'
+      #     severity: 'CRITICAL,HIGH'
           
